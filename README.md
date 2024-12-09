@@ -67,10 +67,4 @@ We welcome contributions to improve this plugin! Feel free to fork the repositor
 
 ---
 
-## License
-
-This plugin is licensed under the [MIT License](LICENSE).
-
----
-
 **Enjoy seamless image editing directly within Obsidian with the Photopea Plugin!**
