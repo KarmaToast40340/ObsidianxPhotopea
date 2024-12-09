@@ -2,7 +2,7 @@ import { App, Plugin, TFile, WorkspaceLeaf } from "obsidian";
 
 export default class PhotopeaPlugin extends Plugin {
   async onload() {
-    // Ajouter un écouteur pour les clics sur les fichiers
+    // Add a listener for file clicks
     this.registerEvent(
       this.app.workspace.on("file-open", (file) => {
         if (file instanceof TFile) {
@@ -12,14 +12,14 @@ export default class PhotopeaPlugin extends Plugin {
     );
   }
 
-  // Fonction pour ouvrir l'image dans Photopea lorsqu'elle est cliquée
+  // Function to open image in Photopea when clicked
   private async openImageInPhotopea(file: TFile) {
     const extension = file.extension.toLowerCase();
     if (extension === "png" || extension === "jpg" || extension === "jpeg") {
       const dataURI = await this.convertFileToDataURI(file);
       const config = {
         files: [
-          dataURI,  // Utilisation de la Data URI comme fichier à charger
+          dataURI,  // Using Data URI as file to load
         ],
         script: "app.echoToOE('Hello from Obsidian!');",
       };
@@ -28,30 +28,30 @@ export default class PhotopeaPlugin extends Plugin {
         JSON.stringify(config)
       )}`;
 
-      // Obtenir le leaf de la vue active
+      //Get the leaf of the active view
       const activeLeaf = this.app.workspace.activeLeaf;
 
-      // Vérifiez si la vue est une vue d'image
+      // Check if the view is an image view
       if (activeLeaf) {
         this.replaceImageWithPhotopea(activeLeaf, photopeaURL);
       }
     }
   }
 
-  // Fonction pour remplacer la vue d'image par Photopea
+  // Function to replace image view with Photopea
   private replaceImageWithPhotopea(leaf: WorkspaceLeaf, photopeaURL: string) {
-    // Vérifier le type de vue dans le leaf
+    // Check the view type in the leaf
     const { view } = leaf;
 
-    // Vérifiez que la vue est une vue de visualisation d'image
+    //Check that the view is an image viewer view
     if (view.getViewType() === "image") {
-      // Accéder à l'élément qui contient l'image
+      // Access the element that contains the image
       const contentEl = view.containerEl;
 
-      // Vider le contenu actuel de la vue (l'image)
+      // Clear the current contents of the view (the image)
       contentEl.empty();
 
-      // Ajouter l'iframe Photopea dans le contenu de la vue
+      // Add Photopea iframe in view content
       const iframe = contentEl.createEl("iframe", {
         attr: {
           src: photopeaURL,
@@ -65,10 +65,10 @@ export default class PhotopeaPlugin extends Plugin {
   }
 
   onClose() {
-    // Aucun contenu à nettoyer ici
+    // No content to clean here
   }
 
-  // Fonction pour convertir un fichier en Data URI
+  // Function to convert a file to a Data URI
   private async convertFileToDataURI(file: TFile): Promise<string> {
     return new Promise((resolve, reject) => {
       this.app.vault.readBinary(file).then((data) => {

@@ -1,11 +1,11 @@
 {
-	"id": "photopea",
-	"name": "Photopea",
+	"id": "photopea-editor",
+	"name": "Photopea Editor",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
+	"description": "Automatically opens images in **Photopea when clicked in your Obsidian vault.",
 	"author": "Karmatoast40340",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "https://github.com/KarmaToast40340",
+	"fundingUrl": "https://buymeacoffee.com/karmatoast40340?new=1",
 	"isDesktopOnly": false
 }
