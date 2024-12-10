@@ -1,4 +1,4 @@
-# Photopea Plugin for Obsidian
+# Photopea Editor
 
 **Photopea Plugin** integrates the powerful online image editor [Photopea](https://www.photopea.com) directly into Obsidian, allowing users to edit PNG and JPG images seamlessly within the app.
 
