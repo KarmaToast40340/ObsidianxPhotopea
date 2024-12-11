@@ -19,7 +19,7 @@ export default class PhotopeaPlugin extends Plugin {
       const dataURI = await this.convertFileToDataURI(file);
       const config = {
         files: [
-          dataURI,  // Using Data URI as file to load
+          dataURI, // Using Data URI as file to load
         ],
         script: "app.echoToOE('Hello from Obsidian!');",
       };
@@ -28,7 +28,7 @@ export default class PhotopeaPlugin extends Plugin {
         JSON.stringify(config)
       )}`;
 
-      //Get the leaf of the active view
+      // Get the leaf of the active view
       const activeLeaf = this.app.workspace.activeLeaf;
 
       // Check if the view is an image view
@@ -40,32 +40,30 @@ export default class PhotopeaPlugin extends Plugin {
 
   // Function to replace image view with Photopea
   private replaceImageWithPhotopea(leaf: WorkspaceLeaf, photopeaURL: string) {
-    // Check the view type in the leaf
     const { view } = leaf;
 
-    //Check that the view is an image viewer view
     if (view.getViewType() === "image") {
-      // Access the element that contains the image
       const contentEl = view.containerEl;
 
       // Clear the current contents of the view (the image)
       contentEl.empty();
 
-      // Add Photopea iframe in view content
+      // Add Photopea iframe with a loading animation
+      contentEl.addClass("plugin-photopea");
+      const loadingDiv = contentEl.createDiv({ cls: "loading" });
+      loadingDiv.setText("Loading Photopea...");
+
       const iframe = contentEl.createEl("iframe", {
         attr: {
           src: photopeaURL,
-          width: "100%",
-          height: "100%",
           frameborder: "0",
         },
       });
-      iframe.style.border = "none";
-    }
-  }
 
-  onClose() {
-    // No content to clean here
+      iframe.onload = () => {
+        loadingDiv.remove();
+      };
+    }
   }
 
   // Function to convert a file to a Data URI
